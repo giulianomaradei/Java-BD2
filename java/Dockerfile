@@ -14,10 +14,20 @@ RUN apt-get update && apt-get install -y \
     mysql-server \
     postgresql \
     tzdata \
+    wget \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
- COPY mysql-connector-java.deb /tmp/
+# Baixar e instalar Apache Derby
+RUN wget https://downloads.apache.org/db/derby/db-derby-10.15.2.0/db-derby-10.15.2.0-bin.tar.gz \
+    && tar -xzf db-derby-10.15.2.0-bin.tar.gz -C /opt \
+    && rm db-derby-10.15.2.0-bin.tar.gz
+
+# Configurar variáveis de ambiente para Derby
+ENV DERBY_HOME=/opt/db-derby-10.15.2.0-bin
+ENV PATH=$PATH:$DERBY_HOME/bin
+
+COPY mysql-connector-java.deb /tmp/
 
  # Instalar o MySQL Connector/J
  RUN dpkg -i /tmp/mysql-connector-java.deb && \
