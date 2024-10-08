@@ -8,7 +8,7 @@
 
 
   <property name="PROPERTIESFILE" value="properties/mysql-sample-properties.xml"/>
-  <property name="MYSQLDRIVER" value="/usr/share/java/mysql-connector-java-9.0.0.jar"/>
+  <property name="MYSQLDRIVER" value="/app/postgresql-jdbc.jar"/>
 
   <path id="CLASSPATH">
     <pathelement location="classes"/>
@@ -17,14 +17,14 @@
   </path>
 
 
-  <property name="DB.VENDOR" value="mysql"/>
-  <property name="DB.DRIVER" value="com.mysql.cj.jdbc.Driver"/>
-  <property name="DB.HOST" value="javabd2-mysql-1"/>
-  <property name="DB.PORT" value="3306"/>
+  <property name="DB.VENDOR" value="postgresql"/>
+  <property name="DB.DRIVER" value="org.postgresql.Driver"/>
+  <property name="DB.HOST" value="java-bd2-postgres-1"/>
+  <property name="DB.PORT" value="5432"/>
   <property name="DB.SID" value="testdb"/>
-  <property name="DB.URL.NEWDATABASE" value="jdbc:mysql://${DB.HOST}:${DB.PORT}/?allowMultiQueries=true"/>
-  <property name="DB.URL" value="jdbc:mysql://${DB.HOST}:${DB.PORT}/${DB.SID}?allowMultiQueries=true"/>
-  <property name="DB.USER" value="root"/>
+  <property name="DB.URL.NEWDATABASE" value="jdbc:postgresql://${DB.HOST}:${DB.PORT}/?allowMultiQueries=true"/>
+  <property name="DB.URL" value="jdbc:postgresql://${DB.HOST}:${DB.PORT}/${DB.SID}?allowMultiQueries=true"/>
+  <property name="DB.USER" value="user"/>
   <property name="DB.PASSWORD" value="password"/>
   <property name="DB.DELIMITER" value=";"/>
 
