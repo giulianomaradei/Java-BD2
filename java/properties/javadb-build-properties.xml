@@ -8,7 +8,7 @@
 
 
   <property name="PROPERTIESFILE" value="properties/javadb-sample-properties.xml"/>
-  <property name="JAVADBDRIVER" value="/app/postgresql-jdbc.jar"/>
+  <property name="JAVADBDRIVER" value="/app/mysql-jdbc.jar"/>
   <property name="XALANDIRECTORY" value="/usr/bin"/>
 
   <path id="XALAN">
@@ -23,12 +23,12 @@
   </path>
 
 
-  <property name="DB.VENDOR" value="postgresql"/>
-  <property name="DB.DRIVER" value="org.postgresql.Driver"/>
-  <property name="DB.HOST" value="java-bd2-postgres-1"/>
-  <property name="DB.PORT" value="5432"/>
+  <property name="DB.VENDOR" value="mysql"/>
+  <property name="DB.DRIVER" value="com.mysql.cj.jdbc.Driver"/>
+  <property name="DB.HOST" value="java-bd2-mysql-1"/>
+  <property name="DB.PORT" value="3306"/>
   <property name="DB.SID" value="testdb"/>
-  <property name="DB.URL" value="jdbc:postgresql://${DB.HOST}:${DB.PORT}/${DB.SID}"/>
+  <property name="DB.URL" value="jdbc:mysql://${DB.HOST}:${DB.PORT}/${DB.SID}"/>
   <property name="DB.USER" value="user"/>
   <property name="DB.PASSWORD" value="password"/>
   <property name="DB.DELIMITER" value=";"/>

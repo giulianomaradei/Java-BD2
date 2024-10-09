@@ -1,17 +1,18 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:13
+  mysql:
+    image: mysql:8.0
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: testdb
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - "${DOCKER_DB_EXPOSED_PORT:-5432}:5432"
+      - "${DOCKER_DB_EXPOSED_PORT:-3306}:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
 
   java:
     build: ./java
@@ -19,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - mysql
 
 volumes:
-  postgres_data:
+  mysql_data:

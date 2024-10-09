@@ -67,7 +67,7 @@ public class CoffeesTable {
       "SALES integer NOT NULL, " + "TOTAL integer NOT NULL, " +
       "PRIMARY KEY (COF_NAME), " +
       "FOREIGN KEY (SUP_ID) REFERENCES SUPPLIERS (SUP_ID))";
-    
+
     try (Statement stmt = con.createStatement()) {
       stmt.executeUpdate(createString);
     } catch (SQLException e) {
@@ -101,7 +101,7 @@ public class CoffeesTable {
 
     try (PreparedStatement updateSales = con.prepareStatement(updateString);
          PreparedStatement updateTotal = con.prepareStatement(updateStatement))
-    
+
     {
       con.setAutoCommit(false);
       for (Map.Entry<String, Integer> e : salesForWeek.entrySet()) {
@@ -191,10 +191,10 @@ public class CoffeesTable {
 
   public void insertRow(String coffeeName, int supplierID, float price,
                         int sales, int total) throws SQLException {
-    
+
     try (Statement stmt =
           con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE))
-    {      
+    {
       ResultSet uprs = stmt.executeQuery("SELECT * FROM COFFEES");
       uprs.moveToInsertRow();
       uprs.updateString("COF_NAME", coffeeName);
@@ -234,7 +234,7 @@ public class CoffeesTable {
       con.setAutoCommit(true);
     }
   }
-  
+
   public static void viewTable(Connection con) throws SQLException {
     String query = "select COF_NAME, SUP_ID, PRICE, SALES, TOTAL from COFFEES";
     try (Statement stmt = con.createStatement()) {
@@ -248,8 +248,6 @@ public class CoffeesTable {
         System.out.println(coffeeName + ", " + supplierID + ", " + price +
                            ", " + sales + ", " + total);
       }
-    } catch (SQLException e) {
-      JDBCTutorialUtilities.printSQLException(e);
     }
   }
 
@@ -270,7 +268,7 @@ public class CoffeesTable {
       JDBCTutorialUtilities.printSQLException(e);
     }
   }
-  
+
   public Set<String> getKeys() throws SQLException {
     HashSet<String> keys = new HashSet<String>();
     String query = "select COF_NAME from COFFEES";
@@ -354,9 +352,9 @@ public class CoffeesTable {
       System.out.println("\nModifying prices by percentage");
 
       myCoffeeTable.modifyPricesByPercentage("Colombian", 0.10f, 9.00f);
-      
+
       System.out.println("\nCOFFEES table after modifying prices by percentage:");
-      
+
       myCoffeeTable.viewTable(myConnection);
 
       System.out.println("\nPerforming batch updates; adding new coffees");
@@ -364,7 +362,7 @@ public class CoffeesTable {
       myCoffeeTable.viewTable(myConnection);
 
 //      System.out.println("\nDropping Coffee and Suplliers table:");
-//      
+//
 //      myCoffeeTable.dropTable();
 //      mySuppliersTable.dropTable();
 
