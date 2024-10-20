@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="MySQL Properties" default="all" basedir=".">
+
+
+    <property name="JAVAC" value="/usr/local/jdk/bin/javac"/>
+    <property name="JAVA" value="/usr/local/jdk/bin/java"/>
+
+
+  <property name="PROPERTIESFILE" value="properties/postgres-sample-properties.xml"/>
+  <property name="POSTGRESDRIVER" value="/app/postgresql-jdbc.jar"/>
+
+  <path id="CLASSPATH">
+    <pathelement location="classes"/>
+    <pathelement location="${POSTGRESDRIVER}"/>
+    <pathelement location="lib/JDBCTutorial.jar"/>
+  </path>
+
+
+  <property name="DB.VENDOR" value="postgresql"/>
+  <property name="DB.DRIVER" value="org.postgresql.Driver"/>
+  <property name="DB.HOST" value="java-bd2-postgres-1"/>
+  <property name="DB.PORT" value="5432"/>
+  <property name="DB.SID" value="testdb"/>
+  <property name="DB.URL.NEWDATABASE" value="jdbc:postgresql://${DB.HOST}:${DB.PORT}/?allowMultiQueries=true"/>
+  <property name="DB.URL" value="jdbc:postgresql://${DB.HOST}:${DB.PORT}/${DB.SID}?allowMultiQueries=true"/>
+  <property name="DB.USER" value="user"/>
+  <property name="DB.PASSWORD" value="password"/>
+  <property name="DB.DELIMITER" value=";"/>
+
+</project>
+
+

@@ -6,7 +6,7 @@ create table SUPPLIERS
   STATE char(2) NOT NULL,
   ZIP char(5),
   PRIMARY KEY (SUP_ID));
-  
+
 create table COFFEES
   (COF_NAME varchar(32) NOT NULL,
   SUP_ID int NOT NULL,
@@ -15,18 +15,18 @@ create table COFFEES
   TOTAL integer NOT NULL,
   PRIMARY KEY (COF_NAME),
   FOREIGN KEY (SUP_ID) REFERENCES SUPPLIERS (SUP_ID));
-  
+
 create table COFFEE_DESCRIPTIONS
   (COF_NAME varchar(32) NOT NULL,
-  COF_DESC blob NOT NULL,
+  COF_DESC text NOT NULL,
   PRIMARY KEY (COF_NAME),
   FOREIGN KEY (COF_NAME) REFERENCES COFFEES (COF_NAME));
 
 create table RSS_FEEDS
   (RSS_NAME varchar(32) NOT NULL,
-  RSS_FEED_XML longtext NOT NULL,
+  RSS_FEED_XML text NOT NULL,
   PRIMARY KEY (RSS_NAME));
-  
+
 create table COF_INVENTORY
   (WAREHOUSE_ID integer NOT NULL,
   COF_NAME varchar(32) NOT NULL,
@@ -35,7 +35,7 @@ create table COF_INVENTORY
   DATE_VAL timestamp,
   FOREIGN KEY (COF_NAME) REFERENCES COFFEES (COF_NAME),
   FOREIGN KEY (SUP_ID) REFERENCES SUPPLIERS (SUP_ID));
-  
+
 create table MERCH_INVENTORY
   (ITEM_ID integer NOT NULL,
   ITEM_NAME varchar(20),
@@ -44,7 +44,7 @@ create table MERCH_INVENTORY
   DATE_VAL timestamp,
   PRIMARY KEY (ITEM_ID),
   FOREIGN KEY (SUP_ID) REFERENCES SUPPLIERS (SUP_ID));
-  
+
 create table COFFEE_HOUSES
   (STORE_ID integer NOT NULL,
   CITY varchar(32),
@@ -52,7 +52,7 @@ create table COFFEE_HOUSES
   MERCH int NOT NULL,
   TOTAL int NOT NULL,
   PRIMARY KEY (STORE_ID));
-  
+
 create table DATA_REPOSITORY
   (DOCUMENT_NAME varchar(50),
   URL varchar(200));

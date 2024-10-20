@@ -25,10 +25,8 @@ ENV PATH=$PATH:/usr/lib/jvm/java-11-openjdk-amd64/bin
 
 ENV JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
 
-# Baixar o driver JDBC do PostgreSQL
-RUN wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar -O /app/mysql-jdbc.jar
-
+COPY postgresql-42.7.4.jar /app/postgresql-jdbc.jar
 # Configurar variáveis de ambiente para o driver do PostgreSQL
-ENV CLASSPATH=$CLASSPATH:/app/mysql-jdbc.jar
+ENV CLASSPATH=$CLASSPATH:/app/postgresql-jdbc.jar
 
 CMD ["tail", "-f", "/dev/null"]

@@ -315,6 +315,12 @@ public class CoffeesTable {
     try {
       myConnection = myJDBCTutorialUtilities.getConnection();
 
+      // Check if the connection is null
+      if (myConnection == null) {
+        System.err.println("Failed to establish a connection to the database.");
+        return;
+      }
+
       // Java DB does not have an SQL create database command; it does require createDatabase
 //      JDBCTutorialUtilities.createDatabase(myConnection,
 //                                           myJDBCTutorialUtilities.dbName,

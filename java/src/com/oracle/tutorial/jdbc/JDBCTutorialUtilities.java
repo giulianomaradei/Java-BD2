@@ -55,22 +55,22 @@ public class JDBCTutorialUtilities {
 
   public String dbms;
   public String jarFile;
-  public String dbName; 
+  public String dbName;
   public String userName;
   public String password;
   public String urlString;
-  
+
   private String driver;
   private String serverName;
   private int portNumber;
   private Properties prop;
-  
+
   public static void initializeTables(Connection con, String dbNameArg, String dbmsArg) throws SQLException {
     SuppliersTable mySuppliersTable =
       new SuppliersTable(con, dbNameArg, dbmsArg);
     CoffeesTable myCoffeeTable =
       new CoffeesTable(con, dbNameArg, dbmsArg);
-    RSSFeedsTable myRSSFeedsTable = 
+    RSSFeedsTable myRSSFeedsTable =
       new RSSFeedsTable(con, dbNameArg, dbmsArg);
     ProductInformationTable myPIT =
       new ProductInformationTable(con, dbNameArg, dbmsArg);
@@ -94,11 +94,11 @@ public class JDBCTutorialUtilities {
     myCoffeeTable.createTable();
     System.out.println("\nPopulating COFFEES table");
     myCoffeeTable.populateTable();
-    
-    System.out.println("\nCreating RSS_FEEDS table...");    
+
+    System.out.println("\nCreating RSS_FEEDS table...");
     myRSSFeedsTable.createTable();
   }
-  
+
   public static void rowIdLifetime(Connection conn) throws SQLException {
     DatabaseMetaData dbMetaData = conn.getMetaData();
     RowIdLifetime lifetime = dbMetaData.getRowIdLifetime();
@@ -112,15 +112,15 @@ public class JDBCTutorialUtilities {
     case ROWID_VALID_OTHER:
       System.out.println("ROWID has indeterminate lifetime");
       break;
-    case ROWID_VALID_SESSION:  
+    case ROWID_VALID_SESSION:
       System.out.println("ROWID type has lifetime that is valid for at least the containing session");
     break;
     case ROWID_VALID_TRANSACTION:
       System.out.println("ROWID type has lifetime that is valid for at least the containing transaction");
     }
   }
-  
-  
+
+
 
   public static void cursorHoldabilitySupport(Connection conn) throws SQLException {
     DatabaseMetaData dbMetaData = conn.getMetaData();
@@ -149,7 +149,7 @@ public class JDBCTutorialUtilities {
 
   public static void getWarningsFromStatement(Statement stmt) throws SQLException {
     JDBCTutorialUtilities.printWarnings(stmt.getWarnings());
-  }  
+  }
 
   public static void printWarnings(SQLWarning warning) throws SQLException {
     if (warning != null) {
@@ -280,7 +280,7 @@ public class JDBCTutorialUtilities {
     Properties connectionProps = new Properties();
     connectionProps.put("user", this.userName);
     connectionProps.put("password", this.password);
-    
+
     String currentUrlString = null;
 
     if (this.dbms.equals("mysql")) {
@@ -289,16 +289,22 @@ public class JDBCTutorialUtilities {
       conn =
           DriverManager.getConnection(currentUrlString,
                                       connectionProps);
-      
+
       this.urlString = currentUrlString + this.dbName;
       conn.setCatalog(this.dbName);
     } else if (this.dbms.equals("derby")) {
       this.urlString = "jdbc:" + this.dbms + ":" + this.dbName;
-      
+
       conn =
-          DriverManager.getConnection(this.urlString + 
+          DriverManager.getConnection(this.urlString +
                                       ";create=true", connectionProps);
-      
+
+    } else if (this.dbms.equals("postgresql")) {
+      currentUrlString = "jdbc:" + this.dbms + "://" + this.serverName +
+                                      ":" + this.portNumber + "/" + this.dbName;
+      conn =
+          DriverManager.getConnection(currentUrlString,
+                                      connectionProps);
     }
     System.out.println("Connected to database");
     return conn;
@@ -354,7 +360,7 @@ public class JDBCTutorialUtilities {
       printSQLException(sqle);
     }
   }
-  
+
   public static String convertDocumentToString(Document doc) throws TransformerConfigurationException,
                                                                     TransformerException {
     Transformer t = TransformerFactory.newInstance().newTransformer();
@@ -362,8 +368,8 @@ public class JDBCTutorialUtilities {
     StringWriter sw = new StringWriter();
     t.transform(new DOMSource(doc), new StreamResult(sw));
     return sw.toString();
-    
-    
+
+
   }
 
   public static void main(String[] args) {
