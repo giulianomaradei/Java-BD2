@@ -166,6 +166,7 @@ public class JDBCTutorialUtilities {
   }
 
   public static boolean ignoreSQLException(String sqlState) {
+    System.out.println("sqlState: " + sqlState);
     if (sqlState == null) {
       System.out.println("The SQL state is not defined!");
       return false;
@@ -176,6 +177,38 @@ public class JDBCTutorialUtilities {
     // 42Y55: Table already exists in schema
     if (sqlState.equalsIgnoreCase("42Y55"))
       return true;
+
+
+    /// ERROS CONEXAO
+    if(sqlState.equalsIgnoreCase("28P01")) {
+      System.out.println("Connection refused! The database username and password is incorrect. Use user and password as credentials.");
+      return true;
+    }
+    if (sqlState.equalsIgnoreCase("08001")) {
+        System.out.println("Unable to connect to the database. Please check if the server is running and the port is correct.");
+        return true;
+    }
+    if (sqlState.equalsIgnoreCase("28000")) {
+        System.out.println("Invalid authorization specification. Please check your username and password.");
+        return true;
+    }
+    if (sqlState.equalsIgnoreCase("3D000")) {
+        System.out.println("Database does not exist. Please check the database name.");
+        return true;
+    }
+
+    /// ERROS SQL
+
+    if (sqlState.equalsIgnoreCase("42601")) {
+      System.out.println("SQL syntax error! Please check the query and try again.");
+      return true;
+    }
+    if (sqlState.equalsIgnoreCase("42S02")) {
+      System.out.println("Table does not exist! Please check if the table was created correctly.");
+      return true;
+    }
+
+
     return false;
   }
 
@@ -195,7 +228,7 @@ public class JDBCTutorialUtilities {
     for (Throwable e : ex) {
       if (e instanceof SQLException) {
         if (ignoreSQLException(((SQLException)e).getSQLState()) == false) {
-          e.printStackTrace(System.err);
+          // e.printStackTrace(System.err);
           System.err.println("SQLState: " + ((SQLException)e).getSQLState());
           System.err.println("Error Code: " + ((SQLException)e).getErrorCode());
           System.err.println("Message: " + e.getMessage());
